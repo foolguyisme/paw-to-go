@@ -556,7 +556,7 @@ async function loadProducts(){
 
 // Google 會員登入：憑證交給後端向 Google 驗證，會員資料存在試算表「會員」工作表
 function renderMember(){
-  $("#mSetup").hidden=LOGIN_ON;$("#mOut").hidden=!LOGIN_ON||!!member;$("#mIn").hidden=!member;
+  $("#member").hidden=!LOGIN_ON;$("#mSetup").hidden=LOGIN_ON;$("#mOut").hidden=!LOGIN_ON||!!member;$("#mIn").hidden=!member;
   $("#wPet").textContent=member&&member.petName?member.petName:"波波";
   $("#wOwner").textContent=member?member.name:"波波媽";
   $("#wBreed").hidden=!!member;
