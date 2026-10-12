@@ -1,0 +1,631 @@
+<!doctype html>
+<html lang="zh-Hant">
+<meta charset="utf-8">
+<meta name="description" content="Paw-To-Go 毛孩快充站：超充站旁的毛孩機能補給。概念展示網站。">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Paw-To-Go 毛孩快充站</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&family=Noto+Sans+TC:wght@400;500;700&display=swap">
+<style>
+/* Layout: clean storefront on white, navy notice bar, powder-blue product tiles; the battery gauge is the recurring motif. */
+:root{
+  --bg:#ffffff; --surface:#f2f8fb; --card:#ffffff; --ink:#14324d; --muted:#587084; --line:#d6e4ec;
+  --navy:#0f4573; --on-navy:#ffffff; --sky:#8fc3da; --sky-soft:#dcedf4; --price:#23779f;
+  --charge:#f0a92b; --on-charge:#3a2500; --ok:#23895c; --pack:#ffffff; --shadow:0 10px 30px rgba(15,69,115,.12);
+  --display:"Noto Serif TC","PMingLiU","Songti TC",serif;
+  --body:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0c1824; --surface:#122434; --card:#16293a; --ink:#e6eff5; --muted:#9fb5c5; --line:#27425a;
+  --navy:#17507f; --on-navy:#ffffff; --sky:#7fb9d3; --sky-soft:#1c3a50; --price:#8fd0ea;
+  --charge:#f4b942; --on-charge:#3a2500; --ok:#5fc796; --pack:#e8f0f5; --shadow:0 10px 30px rgba(0,0,0,.4); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0c1824; --surface:#122434; --card:#16293a; --ink:#e6eff5; --muted:#9fb5c5; --line:#27425a;
+  --navy:#17507f; --on-navy:#ffffff; --sky:#7fb9d3; --sky-soft:#1c3a50; --price:#8fd0ea;
+  --charge:#f4b942; --on-charge:#3a2500; --ok:#5fc796; --pack:#e8f0f5; --shadow:0 10px 30px rgba(0,0,0,.4); color-scheme:dark}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+img{max-width:100%}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.7}
+h1,h2,h3{font-family:var(--display);line-height:1.3;margin:0;text-wrap:balance;letter-spacing:.02em}
+p{margin:0}
+a{color:inherit}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--charge);outline-offset:2px}
+.wrap{max-width:1160px;margin-inline:auto;padding-inline:20px}
+section{padding-block:64px}
+.eyebrow{font-size:12px;letter-spacing:.18em;color:var(--price);font-weight:700}
+.sec-head{display:flex;flex-direction:column;gap:8px;align-items:center;text-align:center;margin-bottom:36px}
+.sec-head h2{font-size:clamp(24px,3.4vw,32px)}
+.sec-head p{color:var(--muted);max-width:36em}
+
+.notice{background:var(--navy);color:var(--on-navy);text-align:center;font-size:13px;padding:8px 16px;letter-spacing:.04em}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);border-bottom:1px solid var(--line)}
+.hbar{display:flex;align-items:center;gap:20px;padding-block:12px;flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;margin-right:auto}
+.logo svg{width:38px;height:38px;flex:none}
+.logo b{font-family:var(--display);font-size:20px;display:block;line-height:1.1}
+.logo span{font-size:11px;letter-spacing:.3em;color:var(--muted)}
+nav{display:flex;gap:22px;font-size:14px;overflow-x:auto;min-width:0}
+nav a{text-decoration:none;white-space:nowrap;padding-block:4px;border-bottom:2px solid transparent}
+nav a:hover{border-color:var(--sky)}
+.cartbtn{position:relative;background:none;border:1px solid var(--line);border-radius:999px;padding:7px 14px;display:flex;gap:8px;align-items:center;font-size:14px}
+.cartbtn i{font-style:normal;background:var(--charge);color:var(--on-charge);border-radius:999px;min-width:20px;height:20px;font-size:12px;font-weight:700;display:grid;place-items:center;padding-inline:5px}
+@media(max-width:720px){nav{order:3;width:100%}}
+
+.hero{background:var(--surface);padding-block:48px}
+.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+.hero h1{font-size:clamp(30px,5vw,48px)}
+.hero h1 em{font-style:normal;color:var(--price)}
+.hero p{color:var(--muted);font-size:16px;max-width:30em;margin-block:18px 26px}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-block;border-radius:999px;padding:11px 24px;font-weight:700;text-decoration:none;border:1.5px solid var(--navy);background:var(--navy);color:var(--on-navy);font-size:14px}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--ink)}
+.btn:hover{filter:brightness(1.1)}
+.hero-facts{display:flex;gap:28px;flex-wrap:wrap;margin-top:32px;padding-top:22px;border-top:1px solid var(--line)}
+.hero-facts div{font-size:13px;color:var(--muted)}
+.hero-facts b{display:block;font-family:var(--display);font-size:22px;color:var(--ink)}
+.hero svg{width:100%;height:auto;max-width:440px;justify-self:center}
+@media(max-width:820px){.hero .wrap{grid-template-columns:1fr}}
+
+.filters{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:28px}
+.fgroup{display:flex;border:1px solid var(--line);border-radius:999px;padding:3px;background:var(--card)}
+.fgroup button{border:0;background:none;padding:6px 16px;border-radius:999px;font-size:14px}
+.fgroup button[aria-pressed="true"]{background:var(--navy);color:var(--on-navy)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:24px}
+.prod{display:flex;flex-direction:column;gap:10px;min-width:0}
+.tile{background:var(--sky-soft);border-radius:6px;position:relative;aspect-ratio:5/4;display:grid;place-items:center;overflow:hidden}
+.tile svg{width:78%;height:auto;transition:transform .3s}
+.prod:hover .tile svg{transform:translateY(-4px)}
+.tag{position:absolute;top:10px;left:10px;font-size:11px;font-weight:700;background:var(--card);color:var(--ink);border-radius:999px;padding:2px 10px}
+.tag.vend{background:var(--charge);color:var(--on-charge)}
+.prod h3{font-family:var(--body);font-size:16px;font-weight:700;letter-spacing:0}
+.meta{font-size:13px;color:var(--muted);line-height:1.5}
+.prow{display:flex;align-items:flex-end;justify-content:space-between;gap:8px;margin-top:auto}
+.price{font-size:19px;font-weight:700;color:var(--price);font-variant-numeric:tabular-nums}
+.mprice{font-size:12px;color:var(--muted);display:block}
+.add{border:1.5px solid var(--navy);background:transparent;border-radius:999px;padding:6px 16px;font-size:13px;font-weight:700;white-space:nowrap}
+.add:hover{background:var(--navy);color:var(--on-navy)}
+.empty{text-align:center;color:var(--muted);grid-column:1/-1;padding:40px}
+
+.flow{background:var(--surface)}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;counter-reset:s}
+.step{background:var(--card);border-radius:8px;padding:24px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.step::before{counter-increment:s;content:"STEP " counter(s);font-size:11px;letter-spacing:.2em;font-weight:700;color:var(--price)}
+.step h3{font-size:19px}
+.step p{color:var(--muted);font-size:14px}
+.mock{margin-top:auto}
+.wallet{background:var(--navy);color:var(--on-navy);border-radius:14px;padding:16px;display:grid;gap:10px;font-size:12px}
+.wallet b{font-family:var(--display);font-size:20px}
+.wallet .row{display:flex;justify-content:space-between;gap:8px;opacity:.9}
+.bars{height:30px;background:repeating-linear-gradient(90deg,var(--on-navy) 0 2px,transparent 2px 5px,var(--on-navy) 5px 6px,transparent 6px 10px);opacity:.85;border-radius:2px}
+.calc{display:grid;gap:12px;font-size:13px}
+.calc label{display:grid;gap:4px}
+.calc input[type=range]{width:100%;accent-color:var(--navy)}
+.calc output{font-weight:700;color:var(--ink)}
+.batt{display:flex;align-items:center;gap:10px}
+.batt .cell{flex:1;height:22px;border:2px solid var(--ink);border-radius:5px;padding:2px;position:relative}
+.batt .cell::after{content:"";position:absolute;right:-6px;top:5px;width:3px;height:8px;background:var(--ink);border-radius:0 2px 2px 0}
+.batt .fill{height:100%;border-radius:2px;background:var(--ok);transition:width .3s,background .3s}
+.batt .fill.low{background:var(--charge)}
+.batt strong{font-variant-numeric:tabular-nums;white-space:nowrap}
+.line{background:var(--sky-soft);border-radius:12px;padding:12px;display:grid;gap:8px;font-size:13px}
+.line small{color:var(--muted)}
+.bubble{background:var(--card);border-radius:4px 14px 14px 14px;padding:10px 12px;line-height:1.6}
+.bubble b{color:var(--ok)}
+@media(max-width:860px){.steps{grid-template-columns:1fr}}
+
+.sites{display:grid;grid-template-columns:.9fr 1.1fr;gap:40px;align-items:center}
+.sites svg{width:100%;height:auto;max-width:420px;justify-self:center}
+.sitelist{list-style:none;margin:0;padding:0;display:grid}
+.sitelist li{display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;padding-block:16px;border-bottom:1px solid var(--line)}
+.sitelist li:first-child{border-top:1px solid var(--line)}
+.dot{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:13px;background:var(--sky-soft)}
+.dot.hub{background:var(--navy);color:var(--on-navy)}
+.sitelist b{display:block}
+.sitelist span{font-size:13px;color:var(--muted)}
+.pill{font-size:12px;border-radius:999px;padding:2px 10px;border:1px solid var(--line);white-space:nowrap}
+.pill.on{border-color:var(--ok);color:var(--ok)}
+.note{font-size:12px;color:var(--muted);margin-top:14px}
+@media(max-width:820px){.sites{grid-template-columns:1fr}}
+
+.partner{background:var(--navy);color:var(--on-navy)}
+.partner .eyebrow{color:var(--charge)}
+.partner .sec-head p{color:var(--on-navy);opacity:.82}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1px;background:rgba(255,255,255,.22);border-block:1px solid rgba(255,255,255,.22);margin-bottom:40px}
+.kpis div{background:var(--navy);padding:22px 16px;text-align:center;font-size:13px}
+.kpis b{display:block;font-family:var(--display);font-size:30px;font-variant-numeric:tabular-nums;color:var(--charge)}
+.pgrid{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+.points{display:grid;gap:22px}
+.points h3{font-size:18px;margin-bottom:4px}
+.points p{font-size:14px;opacity:.85}
+.mods h3{font-size:18px;margin-bottom:6px}
+.mods>p{font-size:13px;opacity:.85;margin-bottom:14px}
+.modgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.mod{border:1px solid rgba(255,255,255,.35);border-radius:6px;padding:8px 6px;font-size:11px;text-align:center;line-height:1.4;min-width:0}
+.mod b{display:block;font-size:15px;font-variant-numeric:tabular-nums}
+.mod.live{background:var(--charge);color:var(--on-charge);border-color:var(--charge)}
+.mod.plan{background:rgba(255,255,255,.14)}
+@media(max-width:820px){.pgrid{grid-template-columns:1fr}}
+
+footer{padding-block:36px;font-size:13px;color:var(--muted);border-top:1px solid var(--line)}
+footer .wrap{display:flex;gap:16px;justify-content:space-between;flex-wrap:wrap}
+
+.scrim{position:fixed;inset:0;background:rgba(8,20,32,.5);z-index:30}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(400px,100%);background:var(--bg);z-index:31;display:flex;flex-direction:column;box-shadow:var(--shadow);padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.drawer>div{padding:18px 20px}
+.dhead{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line)}
+.dhead h2{font-size:20px}
+.x{background:none;border:0;font-size:24px;line-height:1}
+.items{flex:1;overflow-y:auto;display:grid;gap:14px;align-content:start}
+.item{display:grid;grid-template-columns:1fr auto;gap:4px 12px;font-size:14px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.item small{color:var(--muted)}
+.qty{display:flex;align-items:center;gap:8px}
+.qty button{width:26px;height:26px;border-radius:50%;border:1px solid var(--line);background:var(--card);line-height:1}
+.qty span{min-width:1.5em;text-align:center;font-variant-numeric:tabular-nums}
+.dfoot{border-top:1px solid var(--line);display:grid;gap:12px}
+.dfoot select{font:inherit;padding:8px;border-radius:6px;border:1px solid var(--line);background:var(--card);color:var(--ink);width:100%}
+.sum{display:flex;justify-content:space-between;font-size:14px}
+.sum.total{font-size:18px;font-weight:700}
+.sum.total span:last-child{color:var(--price)}
+.done{text-align:center;display:grid;gap:12px;padding-block:40px;justify-items:center}
+.done svg{width:56px;height:56px}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 20px;border-radius:999px;font-size:14px;z-index:40;box-shadow:var(--shadow);max-width:calc(100% - 32px)}
+.member{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:18px 20px;margin-bottom:24px}
+.mrow{display:flex;gap:16px;flex-wrap:wrap;align-items:flex-end;justify-content:space-between}
+.mrow>div{min-width:0}
+.mrow label{display:grid;gap:4px;font-size:13px;color:var(--muted)}
+.mrow input{font:inherit;padding:8px 10px;border-radius:6px;border:1px solid var(--line);background:var(--bg);color:var(--ink);width:9.5em;max-width:100%}
+.err{color:#c0392b;font-size:13px}
+.hint{font-size:13px;color:var(--muted)}
+.btn:disabled{opacity:.6;cursor:wait}
+.share{position:fixed;inset:0;z-index:50;background:rgba(8,20,32,.72);display:grid;place-items:center;padding:16px}
+.sharebox{position:relative;background:var(--bg);border-radius:16px;padding:28px 24px;display:grid;gap:16px;justify-items:center;text-align:center;width:min(480px,100%);max-height:100%;overflow:hidden auto}
+.sharebox .x{position:absolute;top:10px;right:14px}
+.sharebox h2{font-size:22px}
+/* QR stays black on white in both themes so scanners can read it */
+.qr{background:#fff;padding:16px;border-radius:10px;width:min(360px,100%,52vh);aspect-ratio:1;display:grid;place-items:center}
+.qr img,.qr canvas{width:100%!important;height:auto!important;display:block}
+.shareurl{font-size:14px;word-break:break-all;user-select:all;color:var(--muted)}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="paw" viewBox="0 0 24 24"><ellipse cx="12" cy="16" rx="5.5" ry="4.5"/><circle cx="5" cy="10.5" r="2.4"/><circle cx="9.5" cy="6" r="2.4"/><circle cx="14.5" cy="6" r="2.4"/><circle cx="19" cy="10.5" r="2.4"/></symbol>
+  <symbol id="bolt" viewBox="0 0 24 24"><path d="M13.5 2 5 13.5h5.5L9.5 22 19 10h-6z"/></symbol>
+</svg>
+
+<div class="notice">展示網站（Demo）｜全站為概念示意，不會實際收款或出貨</div>
+
+<header>
+  <div class="wrap hbar">
+    <a class="logo" href="#top" aria-label="Paw-To-Go 毛孩快充站">
+      <svg viewBox="0 0 40 40"><rect x="2" y="7" width="32" height="26" rx="6" fill="var(--navy)"/><rect x="34" y="15" width="4" height="10" rx="2" fill="var(--navy)"/><use href="#paw" x="9" y="11" width="18" height="18" fill="var(--charge)"/></svg>
+      <div><b>Paw-To-Go</b><span>毛孩快充站</span></div>
+    </a>
+    <nav>
+      <a href="#shop">全部商品</a><a href="#flow">數位會員卡</a><a href="#sites">補給據點</a><a href="#partner">合作夥伴</a>
+    </nav>
+    <button class="cartbtn" id="shareBtn" type="button">分享 QR</button>
+    <button class="cartbtn" id="cartBtn" type="button">購物車 <i id="cartCount">0</i></button>
+  </div>
+</header>
+
+<main id="top">
+<div class="hero">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">EV 超充站旁的毛孩機能補給</span>
+      <h1>你充電的 20 分鐘，<br><em>毛孩也補給好了。</em></h1>
+      <p>旗艦店現做的機能湯飲與鮮食，加上超充站旁 24 小時的智能機台。用手機錢包裡的會員卡感應一下，下一次該補貨的時間，我們幫你記得。</p>
+      <div class="cta"><a class="btn" href="#shop">逛逛今日菜單</a><a class="btn ghost" href="#flow">會員卡怎麼運作</a></div>
+      <div class="hero-facts">
+        <div><b id="factCount">14 款</b>現做與機台品項</div>
+        <div><b id="factRange">NT$45 起</b>單次補給價格</div>
+        <div><b>9 折</b>會員預留取餐</div>
+      </div>
+    </div>
+    <svg viewBox="0 0 440 360" role="img" aria-label="超充站旁的 Paw-To-Go 智能機台示意圖">
+      <ellipse cx="220" cy="330" rx="200" ry="16" fill="var(--sky-soft)"/>
+      <rect x="40" y="110" width="62" height="220" rx="14" fill="var(--pack)" stroke="var(--sky)" stroke-width="3"/>
+      <rect x="54" y="130" width="34" height="46" rx="6" fill="var(--navy)"/>
+      <use href="#bolt" x="59" y="141" width="24" height="24" fill="var(--charge)"/>
+      <path d="M102 220c40 0 30 80 62 80" fill="none" stroke="var(--ink)" stroke-width="5" stroke-linecap="round"/>
+      <rect x="170" y="50" width="200" height="280" rx="16" fill="var(--navy)"/>
+      <rect x="186" y="66" width="168" height="34" rx="6" fill="var(--charge)"/>
+      <text x="270" y="89" text-anchor="middle" font-family="var(--display)" font-weight="700" font-size="16" fill="var(--on-charge)">Paw-To-Go 快充站</text>
+      <rect x="186" y="112" width="112" height="150" rx="8" fill="var(--pack)"/>
+      <g>
+        <rect x="196" y="124" width="26" height="36" rx="4" fill="#e08a5b"/><rect x="230" y="124" width="26" height="36" rx="4" fill="#5b9bd5"/><rect x="264" y="124" width="26" height="36" rx="4" fill="#7fb77e"/>
+        <rect x="196" y="172" width="26" height="36" rx="4" fill="#c96b8a"/><rect x="230" y="172" width="26" height="36" rx="4" fill="#e3b341"/><rect x="264" y="172" width="26" height="36" rx="4" fill="#5aa9a3"/>
+        <rect x="196" y="220" width="94" height="30" rx="4" fill="var(--sky-soft)"/>
+      </g>
+      <rect x="310" y="112" width="44" height="64" rx="6" fill="var(--sky)"/>
+      <use href="#paw" x="320" y="132" width="24" height="24" fill="var(--navy)"/>
+      <rect x="310" y="188" width="44" height="12" rx="6" fill="var(--pack)"/>
+      <rect x="310" y="208" width="44" height="12" rx="6" fill="var(--pack)" opacity=".6"/>
+      <rect x="196" y="276" width="148" height="36" rx="8" fill="var(--ink)" opacity=".45"/>
+      <g transform="translate(300 18)">
+        <rect width="118" height="50" rx="25" fill="var(--card)" stroke="var(--line)" stroke-width="2"/>
+        <rect x="16" y="16" width="34" height="18" rx="4" fill="none" stroke="var(--ink)" stroke-width="2"/>
+        <rect x="19" y="19" width="22" height="12" rx="2" fill="var(--ok)"/><rect x="51" y="21" width="3" height="8" fill="var(--ink)"/>
+        <text x="62" y="31" font-family="var(--body)" font-weight="700" font-size="15" fill="var(--ink)">20 分</text>
+      </g>
+    </svg>
+  </div>
+</div>
+
+<section id="shop">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">MENU</span>
+      <h2>今日補給菜單</h2>
+      <p>旗艦店吧台現做湯飲、鮮食與甜點；充電站機台提供常溫、可帶著走的零食與機能水。</p>
+    </div>
+    <div class="filters">
+      <div class="fgroup" id="fChannel" role="group" aria-label="通路">
+        <button type="button" data-v="all" aria-pressed="true">全部</button>
+        <button type="button" data-v="實體店" aria-pressed="false">旗艦店現做</button>
+        <button type="button" data-v="自動販賣機" aria-pressed="false">充電站機台</button>
+      </div>
+      <div class="fgroup" id="fPet" role="group" aria-label="適用對象">
+        <button type="button" data-v="all" aria-pressed="true">犬貓皆可</button>
+        <button type="button" data-v="狗" aria-pressed="false">狗狗</button>
+        <button type="button" data-v="貓" aria-pressed="false">貓咪</button>
+      </div>
+    </div>
+    <div class="grid" id="grid"></div>
+  </div>
+</section>
+
+<section class="flow" id="flow">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">DIGITAL PET PASS</span>
+      <h2>不用項圈，也不用記得補貨</h2>
+      <p>會員卡放在 Apple Wallet 或 Google Wallet，用手機或手錶感應就能結帳。剩下的交給我們估算。</p>
+    </div>
+    <div class="member" id="member">
+      <p id="mSetup" class="hint">Google 會員登入尚未啟用，依 README 填好 config.js 後即可使用。</p>
+      <div id="mOut" class="mrow" hidden>
+        <div><b>用 Google 帳號建立毛孩會員卡</b><p class="hint">登入後結帳享 9 折，訂單會記在毛孩名下。</p></div>
+        <div id="gsiBtn"></div>
+      </div>
+      <form id="mIn" class="mrow" hidden>
+        <div><b>嗨，<span id="mName"></span></b><p class="hint">累計訂單 <span id="mOrders">0</span> 筆</p></div>
+        <label for="petName">毛孩名字<input id="petName" maxlength="20" required></label>
+        <label for="petWeight">體重（kg）<input id="petWeight" type="number" min="1" max="90" step="0.5" required></label>
+        <button class="btn" type="submit" id="savePet">儲存會員卡</button>
+        <button class="add" type="button" id="logout">登出</button>
+      </form>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <h3>感應會員卡</h3>
+        <p>在機台或旗艦店感應一下，這次買了什麼會記在毛孩名下。</p>
+        <div class="mock wallet">
+          <div class="row"><span>PAW-TO-GO PET PASS</span><span>示意卡片</span></div>
+          <b id="wPet">波波</b>
+          <div class="row"><span><span id="wBreed">柯基・</span><span id="wWeight">12</span> kg</span><span>主人：<span id="wOwner">波波媽</span></span></div>
+          <div class="bars"></div>
+        </div>
+      </div>
+      <div class="step">
+        <h3>估算家裡存量</h3>
+        <p>依體重與購買份數推估鮮食幾天後吃完。拉拉看：</p>
+        <div class="mock calc">
+          <label for="inW">毛孩體重 <output id="outW">12 kg</output>
+            <input type="range" id="inW" min="2" max="40" value="12"></label>
+          <label for="inP">家裡的鮮食包（每包 100g）<output id="outP">7 包</output>
+            <input type="range" id="inP" min="1" max="20" value="7"></label>
+          <div class="batt"><div class="cell"><div class="fill" id="fill"></div></div><strong id="days">約 3 天</strong></div>
+          <small class="meta">示意試算：每日食量以體重 × 20g 估計。</small>
+        </div>
+      </div>
+      <div class="step">
+        <h3>快吃完時提醒你</h3>
+        <p>存量見底當天，LINE 會收到預留通知，下班順路取餐。</p>
+        <div class="mock line">
+          <small>Paw-To-Go 官方帳號・<span id="lineWhen">3 天後 16:30</span></small>
+          <div class="bubble">波波媽，波波的鮮食快見底囉！已在<b>台南東區旗艦店</b>幫您預留新鮮的份量，今天下班順路取餐，直接享 <b>9 折</b>。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="sites">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">LOCATIONS</span>
+      <h2>一間旗艦吧台，三座充電站機台</h2>
+      <p>每個區域以同一組配置展店：吧台負責現做與備料，機台放在你本來就會停留的超充站。</p>
+    </div>
+    <div class="sites">
+      <svg viewBox="0 0 420 320" role="img" aria-label="一間旗艦吧台連接三座充電站機台的配置圖">
+        <g stroke="var(--sky)" stroke-width="3" stroke-dasharray="6 7" fill="none">
+          <path d="M210 150 90 70"/><path d="M210 150 340 90"/><path d="M210 150 220 275"/>
+        </g>
+        <circle cx="210" cy="150" r="52" fill="var(--navy)"/>
+        <use href="#paw" x="190" y="118" width="40" height="40" fill="var(--charge)"/>
+        <text x="210" y="178" text-anchor="middle" font-size="13" font-weight="700" fill="var(--on-navy)" font-family="var(--body)">旗艦吧台</text>
+        <g font-family="var(--body)" font-size="13" font-weight="700" fill="var(--ink)" text-anchor="middle">
+          <circle cx="90" cy="70" r="30" fill="var(--sky-soft)" stroke="var(--sky)" stroke-width="2"/><use href="#bolt" x="78" y="50" width="24" height="24" fill="var(--charge)"/><text x="90" y="88">A</text>
+          <circle cx="340" cy="90" r="30" fill="var(--sky-soft)" stroke="var(--sky)" stroke-width="2"/><use href="#bolt" x="328" y="70" width="24" height="24" fill="var(--charge)"/><text x="340" y="108">B</text>
+          <circle cx="220" cy="275" r="30" fill="var(--sky-soft)" stroke="var(--sky)" stroke-width="2"/><use href="#bolt" x="208" y="255" width="24" height="24" fill="var(--charge)"/><text x="220" y="293">C</text>
+        </g>
+      </svg>
+      <div>
+        <ul class="sitelist">
+          <li><span class="dot hub">店</span><div><b>台南東區旗艦吧台</b><span>現做湯飲、鮮食主餐、特色甜點｜會員預留取餐</span></div><span class="pill on">示範營運</span></li>
+          <li><span class="dot">A</span><div><b>東區超充站機台</b><span>凍乾零食、鮮食包、機能水｜24 小時</span></div><span class="pill on">示範營運</span></li>
+          <li><span class="dot">B</span><div><b>安平超充站機台</b><span>凍乾零食、肉泥條、潔牙棒｜24 小時</span></div><span class="pill">籌備中</span></li>
+          <li><span class="dot">C</span><div><b>永康超充站機台</b><span>凍乾零食、鮮食包、機能水｜24 小時</span></div><span class="pill">籌備中</span></li>
+        </ul>
+        <p class="note">以上據點名稱與狀態為展示用示意，非實際營運資訊。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="partner" id="partner">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">FOR PARTNERS</span>
+      <h2>毛孩的機能補給網路</h2>
+      <p>我們不開大店面，把補給點放進正在擴張的超充站。吧台與機台是觸點，真正的生意是毛孩每天都要吃的那一份。</p>
+    </div>
+    <div class="kpis">
+      <div><b>300 萬</b>單一模組投入</div>
+      <div><b>1 + 3</b>旗艦吧台＋充電站機台</div>
+      <div><b id="kMargin">65%</b>品項平均毛利率（依食材成本）</div>
+      <div><b>20–30 分</b>超充停留時間</div>
+    </div>
+    <div class="pgrid">
+      <div class="points">
+        <div><h3>像咖啡膠囊一樣的經常性收入</h3><p>硬體佈局是為了綁定毛爸媽未來幾年的日常消耗：鮮食、湯飲與機能水。收入來自回購，而不是單次來店。</p></div>
+        <div><h3>進駐超充站，而不是租店面</h3><p>車主充電時多半在旁邊遛狗，消費力高、對新科技接受度也高。場地與電力由充電站既有設施支援，機台同時是營運商的車主服務。</p></div>
+        <div><h3>主動提醒取代綁卡訂閱</h3><p>數位會員卡記錄每次購買，系統推估存量後以 LINE 預留取餐，把顧客自然帶回旗艦店。</p></div>
+        <div><h3>一個區域一個模組，獨立核算</h3><p>每組資金對應一個區域的實體資產與營收分潤。首個模組驗證損益兩平後，再複製到下一個區域。</p></div>
+      </div>
+      <div class="mods">
+        <h3>15 個區域模組</h3>
+        <p>每格代表一組「1 吧台＋3 機台」。</p>
+        <div class="modgrid" id="mods"></div>
+        <p class="note" style="color:inherit;opacity:.7">數字為商業構想的規劃值與商品清單試算，非實際營運成果或財務承諾。</p>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Paw-To-Go 毛孩快充站・概念展示網站</span>
+    <span>商品、價格與據點皆為示意，未提供實際交易。</span>
+  </div>
+</footer>
+
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" hidden aria-label="購物車">
+  <div class="dhead"><h2>購物車</h2><button class="x" id="closeCart" type="button" aria-label="關閉">×</button></div>
+  <div class="items" id="items"></div>
+  <div class="dfoot" id="dfoot">
+    <label for="pickup" class="meta">取貨方式</label>
+    <select id="pickup">
+      <option>台南東區旗艦吧台取餐</option>
+      <option>東區超充站機台取貨</option>
+    </select>
+    <div class="sum"><span>小計</span><span id="sub">NT$0</span></div>
+    <div class="sum" id="discRow"><span>會員 9 折</span><span id="disc">−NT$0</span></div>
+    <p class="hint" id="loginHint" hidden>登入 Google 會員可享 9 折。<a href="#flow" id="toLogin">前往登入</a></p>
+    <div class="sum total"><span>合計</span><span id="total">NT$0</span></div>
+    <p class="err" id="cartErr" hidden></p>
+    <button class="btn" id="checkout" type="button">送出展示訂單</button>
+  </div>
+</aside>
+<div class="toast" id="toast" hidden role="status"></div>
+<div class="share" id="share" hidden role="dialog" aria-modal="true" aria-label="分享網址">
+  <div class="sharebox">
+    <button class="x" id="closeShare" type="button" aria-label="關閉">×</button>
+    <h2>掃描開啟 Paw-To-Go</h2>
+    <div class="qr" id="qr"></div>
+    <p class="shareurl" id="shareUrl"></p>
+    <button class="btn" id="copyUrl" type="button">複製網址</button>
+  </div>
+</div>
+<script src="config.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<script>
+const CFG=window.PTG_CONFIG||{}, API=CFG.APPS_SCRIPT_URL||"", LOGIN_ON=!!(API&&CFG.GOOGLE_CLIENT_ID);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+// 內建商品（來源：商品清單.xlsx）。設定後端後會改用 Google 試算表「商品」工作表的內容。
+let P=[
+ ["實體店","營養湯飲","黃金牛骨元氣水","牛大骨、胡蘿蔔、蘋果","狗狗","補充元氣",85,30,"cup","#d98b4a"],
+ ["實體店","營養湯飲","小魚干喵喵膠原飲","丁香魚、雞軟骨、柴魚高湯","貓咪","皮毛養護",80,25,"cup","#5b9bd5"],
+ ["實體店","營養湯飲","關節保養綠蓉湯","綠唇貽貝、雞胸肉、花椰菜","犬貓","關節保健",95,35,"cup","#6fae7a"],
+ ["實體店","鮮食主餐","嫩蒸土雞藜麥杯","雞腿肉、紅藜麥、南瓜","狗狗","低脂健康",120,45,"bowl","#e3a53c"],
+ ["實體店","鮮食主餐","鮮鮭牛腩雙拼能量碗","鮭魚、牛腩、青豆","狗狗","高蛋白增肌",145,55,"bowl","#e07a5f"],
+ ["實體店","鮮食主餐","慕斯鴨胸舒敏盒","鴨胸肉、山藥、枸杞","貓咪","低敏易消化",130,45,"bowl","#b97a95"],
+ ["實體店","特色甜點","汪汪雲朵羊奶霜","羊奶、無糖優格、角豆粉","狗狗","腸胃保健",90,30,"dessert","#a98467"],
+ ["實體店","特色甜點","肉泥珍珠啵啵杯","雞肉泥、寒天珍珠、雞高湯","貓咪","補水解饞",110,35,"dessert","#c96b8a"],
+ ["自動販賣機","凍乾零食","骰子牛凍乾原肉塊","100% 原肉／50g","犬貓","高蛋白零食",150,60,"pouch","#b5533c"],
+ ["自動販賣機","鮮食包","雞肉鮮蔬常溫餐包","雞肉、蔬菜／100g","狗狗","外出便攜",70,25,"pouch","#7fb069"],
+ ["自動販賣機","肉泥條","鮪魚干貝綜合肉泥條","鮪魚、干貝／4 入","貓咪","誘食獎勵",60,20,"sticks","#4f9ec4"],
+ ["自動販賣機","機能水","蔓越莓泌尿保健水","蔓越莓萃取物／250ml","貓咪","泌尿道保健",45,15,"bottle","#c2456b"],
+ ["自動販賣機","凍乾零食","爆蛋柳葉魚凍乾","柳葉魚／40g","犬貓","豐富鈣質",120,45,"pouch","#d9a441"],
+ ["自動販賣機","潔牙骨","綠茶薄荷潔牙棒","綠茶粉、薄荷／5 入","狗狗","清新口氣",80,25,"sticks","#5aa9a3"]
+].map((r,i)=>({id:i,sku:"P"+String(i+1).padStart(2,"0"),ch:r[0],series:r[1],name:r[2],spec:r[3],pet:r[4],need:r[5],price:r[6],cost:r[7],art:r[8],c:r[9]}));
+
+const $=s=>document.querySelector(s), nt=n=>"NT$"+Math.round(n).toLocaleString("en-US");
+const paw=(x,y,s,f)=>`<use href="#paw" x="${x}" y="${y}" width="${s}" height="${s}" fill="${f}"/>`;
+const ART={
+ cup:c=>`<path d="M62 46h76l-9 96a8 8 0 0 1-8 7H79a8 8 0 0 1-8-7z" fill="var(--pack)"/><path d="M65.5 82h69l-3.4 36H68.9z" fill="${c}"/><rect x="54" y="34" width="92" height="14" rx="7" fill="${c}"/><rect x="74" y="24" width="52" height="12" rx="6" fill="var(--pack)"/>${paw(88,88,24,"#fff")}<path d="M88 16q-5-6 0-12M112 16q-5-6 0-12" stroke="${c}" stroke-width="3" fill="none" stroke-linecap="round"/>`,
+ bowl:c=>`<path d="M30 78h140a70 62 0 0 1-140 0z" fill="var(--pack)"/><ellipse cx="100" cy="78" rx="70" ry="16" fill="${c}"/><circle cx="76" cy="74" r="8" fill="#fff" opacity=".55"/><circle cx="104" cy="70" r="10" fill="#fff" opacity=".35"/><circle cx="128" cy="77" r="7" fill="#fff" opacity=".55"/><path d="M44 104h112a64 50 0 0 1-8 14H52a64 50 0 0 1-8-14z" fill="${c}" opacity=".85"/>${paw(90,100,20,"#fff")}<rect x="70" y="140" width="60" height="8" rx="4" fill="${c}"/>`,
+ dessert:c=>`<path d="M58 64h84l-10 80a7 7 0 0 1-7 6H75a7 7 0 0 1-7-6z" fill="var(--pack)"/><path d="M62 96h76l-5 42a7 7 0 0 1-7 6H74a7 7 0 0 1-7-6z" fill="${c}" opacity=".85"/><circle cx="80" cy="56" r="20" fill="#fff"/><circle cx="120" cy="56" r="20" fill="#fff"/><circle cx="100" cy="40" r="22" fill="#fff"/><circle cx="100" cy="22" r="7" fill="${c}"/><circle cx="84" cy="124" r="5" fill="#fff" opacity=".7"/><circle cx="100" cy="130" r="5" fill="#fff" opacity=".7"/><circle cx="116" cy="124" r="5" fill="#fff" opacity=".7"/>`,
+ pouch:c=>`<path d="M56 30h88l8 112a8 8 0 0 1-8 8H56a8 8 0 0 1-8-8z" fill="${c}"/><rect x="56" y="22" width="88" height="14" rx="3" fill="var(--pack)"/><circle cx="100" cy="92" r="30" fill="var(--pack)"/>${paw(84,76,32,c)}<rect x="74" y="132" width="52" height="6" rx="3" fill="#fff" opacity=".7"/>`,
+ sticks:c=>[0,1,2,3].map(i=>`<g transform="rotate(${-12+i*8} 100 150)"><rect x="${52+i*26}" y="28" width="20" height="120" rx="6" fill="${i%2?'var(--pack)':c}"/><rect x="${52+i*26}" y="28" width="20" height="16" rx="6" fill="#fff" opacity=".5"/></g>`).join("")+paw(88,86,24,"#fff"),
+ bottle:c=>`<rect x="84" y="12" width="32" height="18" rx="4" fill="${c}"/><path d="M80 30h40l10 22v90a8 8 0 0 1-8 8H78a8 8 0 0 1-8-8V52z" fill="var(--pack)"/><rect x="70" y="72" width="60" height="50" fill="${c}"/>${paw(88,85,24,"#fff")}<rect x="78" y="132" width="44" height="5" rx="2.5" fill="${c}" opacity=".5"/>`
+};
+
+let fCh="all", fPet="all", cart={}, member=null, idToken=null;
+try{cart=JSON.parse(localStorage.getItem("ptg-cart"))||{}}catch(e){}
+const save=()=>{try{localStorage.setItem("ptg-cart",JSON.stringify(cart))}catch(e){}};
+
+function renderGrid(){
+  const list=P.filter(p=>(fCh==="all"||p.ch===fCh)&&(fPet==="all"||p.pet.includes(fPet)||p.pet==="犬貓"));
+  $("#grid").innerHTML=list.length?list.map(p=>`
+   <article class="prod">
+    <div class="tile"><span class="tag ${p.ch==="自動販賣機"?"vend":""}">${p.ch==="自動販賣機"?"充電站機台":"旗艦店現做"}</span>
+     <svg viewBox="0 0 200 160" aria-hidden="true">${ART[p.art](p.c)}</svg></div>
+    <div><h3>${esc(p.name)}</h3><div class="meta">${esc(p.series)}・${esc(p.pet)}・${esc(p.need)}</div><div class="meta">${esc(p.spec)}</div></div>
+    <div class="prow"><div><span class="price">${nt(p.price)}</span><span class="mprice">會員預留 ${nt(p.price*.9)}</span></div>
+     <button class="add" type="button" data-id="${p.id}">加入購物車</button></div>
+   </article>`).join(""):`<p class="empty">這個組合目前沒有品項，換個篩選試試。</p>`;
+}
+function bindFilter(sel,set){
+  $(sel).addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;
+    $(sel).querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",x===b));set(b.dataset.v);renderGrid()});
+}
+bindFilter("#fChannel",v=>fCh=v);bindFilter("#fPet",v=>fPet=v);
+
+let toastT;
+function toast(msg){const t=$("#toast");t.textContent=msg;t.hidden=false;clearTimeout(toastT);toastT=setTimeout(()=>t.hidden=true,1800)}
+function renderCart(){
+  const ids=Object.keys(cart).filter(id=>cart[id]>0&&P[id]);
+  const n=ids.reduce((s,id)=>s+cart[id],0), sub=ids.reduce((s,id)=>s+cart[id]*P[id].price,0), d=(member||!API)?Math.round(sub*.1):0;
+  $("#discRow").hidden=!!API&&!member;$("#loginHint").hidden=!LOGIN_ON||!!member;
+  $("#cartCount").textContent=n;
+  $("#items").innerHTML=ids.length?ids.map(id=>{const p=P[id];return `<div class="item">
+     <div><b>${esc(p.name)}</b><br><small>${esc(p.series)}・${nt(p.price)}</small></div>
+     <div class="qty"><button type="button" data-q="-1" data-id="${id}" aria-label="減少">−</button><span>${cart[id]}</span><button type="button" data-q="1" data-id="${id}" aria-label="增加">＋</button></div></div>`}).join("")
+    :`<p class="empty">購物車是空的。先去挑幾樣補給吧。</p>`;
+  $("#dfoot").hidden=!ids.length;
+  $("#sub").textContent=nt(sub);$("#disc").textContent="−"+nt(d);$("#total").textContent=nt(sub-d);
+}
+function openCart(o){$("#drawer").hidden=!o;$("#scrim").hidden=!o;if(o)renderCart()}
+$("#grid").addEventListener("click",e=>{const b=e.target.closest(".add");if(!b)return;
+  cart[b.dataset.id]=(cart[b.dataset.id]||0)+1;save();renderCart();toast("已加入購物車："+P[b.dataset.id].name)});
+$("#items").addEventListener("click",e=>{const b=e.target.closest("[data-q]");if(!b)return;
+  cart[b.dataset.id]=Math.max(0,(cart[b.dataset.id]||0)+ +b.dataset.q);if(!cart[b.dataset.id])delete cart[b.dataset.id];save();renderCart()});
+$("#cartBtn").onclick=()=>openCart(true);$("#closeCart").onclick=$("#scrim").onclick=()=>openCart(false);
+document.addEventListener("keydown",e=>{if(e.key==="Escape")openCart(false)});
+async function post(body){
+  const r=await fetch(API,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(body)});
+  const j=await r.json();
+  if(!j.ok)throw new Error(j.error||"伺服器沒有回應");
+  return j;
+}
+$("#toLogin").onclick=()=>openCart(false);
+$("#checkout").onclick=async()=>{
+  const btn=$("#checkout"), err=$("#cartErr"), where=$("#pickup").value;
+  const ids=Object.keys(cart).filter(id=>cart[id]>0&&P[id]);
+  if(!ids.length)return;
+  err.hidden=true;
+  let title="模擬訂單完成", line=esc(where)+"・"+$("#total").textContent;
+  if(API){
+    btn.disabled=true;btn.textContent="送出中…";
+    try{
+      const r=await post({action:"order",pickup:where,idToken,items:ids.map(id=>({sku:P[id].sku,qty:cart[id]}))});
+      title="訂單已送出";line="訂單編號 "+esc(r.orderId)+"<br>"+esc(where)+"・"+nt(r.total);
+      if(member)member.orders=(member.orders||0)+1;
+    }catch(e){
+      err.textContent="訂單沒有送出："+e.message+"。請再試一次。";err.hidden=false;return;
+    }finally{btn.disabled=false;btn.textContent="送出展示訂單"}
+  }
+  cart={};save();renderCart();renderMember();
+  $("#items").innerHTML=`<div class="done"><svg viewBox="0 0 56 56"><circle cx="28" cy="28" r="28" fill="var(--ok)"/><path d="M16 29l8 8 16-17" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <h3>${title}</h3><p class="meta">${line}<br>這是展示訂單，沒有實際扣款，也不會出貨。</p></div>`;
+};
+
+// 商品由 Google 試算表管理：讀取成功就取代內建清單，失敗則維持內建清單
+async function loadProducts(){
+  if(!API)return;
+  try{
+    const j=await (await fetch(API+"?action=products")).json();
+    if(!j.ok||!Array.isArray(j.products)||!j.products.length)return;
+    P=j.products.map((p,i)=>({id:i,sku:String(p.sku),ch:String(p.channel),series:String(p.series),name:String(p.name),spec:String(p.spec),
+      pet:String(p.pet),need:String(p.need),price:Number(p.price)||0,
+      art:ART[p.art]?p.art:"pouch",c:/^#[0-9a-f]{6}$/i.test(p.color)?p.color:"#5b9bd5"}));
+    if(j.avgMargin)$("#kMargin").textContent=Math.round(j.avgMargin*100)+"%";
+    facts();renderGrid();renderCart();
+  }catch(e){console.warn("商品讀取失敗，使用內建清單",e)}
+}
+
+// Google 會員登入：憑證交給後端向 Google 驗證，會員資料存在試算表「會員」工作表
+function renderMember(){
+  $("#mSetup").hidden=LOGIN_ON;$("#mOut").hidden=!LOGIN_ON||!!member;$("#mIn").hidden=!member;
+  $("#wPet").textContent=member&&member.petName?member.petName:"波波";
+  $("#wOwner").textContent=member?member.name:"波波媽";
+  $("#wBreed").hidden=!!member;
+  if(member){$("#mName").textContent=member.name;$("#mOrders").textContent=member.orders||0}
+}
+function setMember(m){
+  member=m;
+  $("#petName").value=m.petName||"";$("#petWeight").value=m.petWeight||"";
+  if(m.petWeight){$("#inW").value=Math.min(40,Math.max(2,Math.round(m.petWeight)));calc()}
+  renderMember();renderCart();
+}
+async function onCredential(res){
+  try{idToken=res.credential;setMember((await post({action:"login",idToken})).member);toast("已登入："+member.name)}
+  catch(e){idToken=null;toast("登入失敗："+e.message)}
+}
+$("#mIn").addEventListener("submit",async e=>{
+  e.preventDefault();const b=$("#savePet");b.disabled=true;
+  try{setMember((await post({action:"savePet",idToken,petName:$("#petName").value,petWeight:$("#petWeight").value})).member);toast("會員卡已儲存")}
+  catch(err){toast("沒有儲存："+err.message)}finally{b.disabled=false}
+});
+$("#logout").onclick=()=>{
+  if(window.google)google.accounts.id.disableAutoSelect();
+  member=null;idToken=null;renderMember();renderCart();toast("已登出");
+};
+if(LOGIN_ON){
+  const s=document.createElement("script");s.src="https://accounts.google.com/gsi/client";s.async=true;
+  s.onload=()=>{
+    google.accounts.id.initialize({client_id:CFG.GOOGLE_CLIENT_ID,callback:onCredential,auto_select:true});
+    google.accounts.id.renderButton($("#gsiBtn"),{theme:"outline",size:"large",shape:"pill",locale:"zh_TW"});
+  };
+  document.head.appendChild(s);
+}
+
+function calc(){
+  const w=+$("#inW").value, p=+$("#inP").value, days=p*100/(w*20), shown=Math.max(1,Math.round(days));
+  $("#outW").textContent=w+" kg";$("#outP").textContent=p+" 包";$("#wWeight").textContent=w;
+  $("#days").textContent="約 "+shown+" 天";$("#lineWhen").textContent=shown+" 天後 16:30";
+  const f=$("#fill");f.style.width=Math.min(100,days/14*100)+"%";f.classList.toggle("low",days<=3);
+}
+$("#inW").oninput=$("#inP").oninput=calc;
+
+function facts(){$("#factCount").textContent=P.length+" 款";$("#factRange").textContent="NT$"+Math.min(...P.map(p=>p.price))+" 起"}
+facts();
+$("#kMargin").textContent=Math.round(P.reduce((s,p)=>s+(p.price-p.cost)/p.price,0)/P.length*100)+"%";
+$("#mods").innerHTML=Array.from({length:15},(_,i)=>{
+  const n=String(i+1).padStart(2,"0");
+  return i===0?`<div class="mod live"><b>${n}</b>台南東區<br>示範模組`:i===1?`<div class="mod plan"><b>${n}</b>台中草悟道<br>規劃中`:`<div class="mod"><b>${n}</b>開放<br>洽談`;
+}).map(s=>s+"</div>").join("");
+
+// 分享網址：config.js 有填就用它，否則用目前頁面網址
+const SHARE_URL=CFG.SHARE_URL||"";
+function openShare(o){
+  const url=SHARE_URL||location.href.split("#")[0];
+  $("#share").hidden=!o;if(!o)return;
+  $("#shareUrl").textContent=url;
+  const q=$("#qr");
+  if(!q.firstChild){
+    if(window.QRCode)new QRCode(q,{text:url,width:720,height:720,correctLevel:QRCode.CorrectLevel.M});
+    else q.textContent="QR 元件載入失敗，請直接使用下方網址。";
+  }
+}
+$("#shareBtn").onclick=()=>openShare(true);$("#closeShare").onclick=()=>openShare(false);
+$("#share").addEventListener("click",e=>{if(e.target.id==="share")openShare(false)});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")openShare(false)});
+$("#copyUrl").onclick=()=>{
+  const t=$("#shareUrl");
+  (navigator.clipboard?navigator.clipboard.writeText(t.textContent):Promise.reject()).then(()=>toast("已複製網址"))
+   .catch(()=>{const r=document.createRange();r.selectNodeContents(t);const s=getSelection();s.removeAllRanges();s.addRange(r);toast("已選取網址，請按 Ctrl+C 複製")});
+};
+
+renderGrid();renderCart();calc();renderMember();loadProducts();
+</script>
