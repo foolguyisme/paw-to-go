@@ -218,11 +218,11 @@ footer .wrap{display:flex;gap:16px;justify-content:space-between;flex-wrap:wrap}
     <div>
       <span class="eyebrow">EV 超充站旁的毛孩機能補給</span>
       <h1>你充電的 20 分鐘，<br><em>毛孩也補給好了。</em></h1>
-      <p>旗艦店現做的機能湯飲與鮮食，加上超充站旁 24 小時的智能機台。用手機錢包裡的會員卡感應一下，下一次該補貨的時間，我們幫你記得。</p>
+      <p>旗艦吧台現做的能量碗與大骨湯，加上超充站旁 24 小時的智能機台。用手機錢包裡的會員卡感應一下，下一次該補貨的時間，我們幫你記得。</p>
       <div class="cta"><a class="btn" href="#shop">逛逛今日菜單</a><a class="btn ghost" href="#flow">會員卡怎麼運作</a></div>
       <div class="hero-facts">
         <div><b id="factCount">14 款</b>現做與機台品項</div>
-        <div><b id="factRange">NT$45 起</b>單次補給價格</div>
+        <div><b id="factRange">NT$30 起</b>單次補給價格</div>
         <div><b>9 折</b>會員預留取餐</div>
       </div>
     </div>
@@ -261,7 +261,7 @@ footer .wrap{display:flex;gap:16px;justify-content:space-between;flex-wrap:wrap}
     <div class="sec-head">
       <span class="eyebrow">MENU</span>
       <h2>今日補給菜單</h2>
-      <p>旗艦店吧台現做湯飲、鮮食與甜點；充電站機台提供常溫、可帶著走的零食與機能水。</p>
+      <p>旗艦吧台現做能量碗與大骨湯；充電站機台提供電解水、凍乾、肉泥與外出清潔組，銅板價帶著走。</p>
     </div>
     <div class="filters">
       <div class="fgroup" id="fChannel" role="group" aria-label="通路">
@@ -269,10 +269,10 @@ footer .wrap{display:flex;gap:16px;justify-content:space-between;flex-wrap:wrap}
         <button type="button" data-v="實體店" aria-pressed="false">旗艦店現做</button>
         <button type="button" data-v="自動販賣機" aria-pressed="false">充電站機台</button>
       </div>
-      <div class="fgroup" id="fPet" role="group" aria-label="適用對象">
-        <button type="button" data-v="all" aria-pressed="true">犬貓皆可</button>
-        <button type="button" data-v="狗" aria-pressed="false">狗狗</button>
-        <button type="button" data-v="貓" aria-pressed="false">貓咪</button>
+      <div class="fgroup" id="fPet" role="group" aria-label="商品類型">
+        <button type="button" data-v="all" aria-pressed="true">全部類型</button>
+        <button type="button" data-v="single" aria-pressed="false">單品</button>
+        <button type="button" data-v="combo" aria-pressed="false">優惠組合</button>
       </div>
     </div>
     <div class="grid" id="grid"></div>
@@ -317,8 +317,8 @@ footer .wrap{display:flex;gap:16px;justify-content:space-between;flex-wrap:wrap}
         <div class="mock calc">
           <label for="inW">毛孩體重 <output id="outW">12 kg</output>
             <input type="range" id="inW" min="2" max="40" value="12"></label>
-          <label for="inP">家裡的鮮食包（每包 100g）<output id="outP">7 包</output>
-            <input type="range" id="inP" min="1" max="20" value="7"></label>
+          <label for="inP">家裡的能量碗（每份 150g）<output id="outP">5 份</output>
+            <input type="range" id="inP" min="1" max="20" value="5"></label>
           <div class="batt"><div class="cell"><div class="fill" id="fill"></div></div><strong id="days">約 3 天</strong></div>
           <small class="meta">示意試算：每日食量以體重 × 20g 估計。</small>
         </div>
@@ -358,10 +358,10 @@ footer .wrap{display:flex;gap:16px;justify-content:space-between;flex-wrap:wrap}
       </svg>
       <div>
         <ul class="sitelist">
-          <li><span class="dot hub">店</span><div><b>台南東區旗艦吧台</b><span>現做湯飲、鮮食主餐、特色甜點｜會員預留取餐</span></div><span class="pill on">示範營運</span></li>
-          <li><span class="dot">A</span><div><b>東區超充站機台</b><span>凍乾零食、鮮食包、機能水｜24 小時</span></div><span class="pill on">示範營運</span></li>
-          <li><span class="dot">B</span><div><b>安平超充站機台</b><span>凍乾零食、肉泥條、潔牙棒｜24 小時</span></div><span class="pill">籌備中</span></li>
-          <li><span class="dot">C</span><div><b>永康超充站機台</b><span>凍乾零食、鮮食包、機能水｜24 小時</span></div><span class="pill">籌備中</span></li>
+          <li><span class="dot hub">店</span><div><b>台南東區旗艦吧台</b><span>現做能量碗、大骨湯、優惠組合｜會員預留取餐</span></div><span class="pill on">示範營運</span></li>
+          <li><span class="dot">A</span><div><b>東區超充站機台</b><span>電解水、純肉凍乾、鮮肉泥、清潔組｜24 小時</span></div><span class="pill on">示範營運</span></li>
+          <li><span class="dot">B</span><div><b>安平超充站機台</b><span>電解水、純肉凍乾、鮮肉泥、清潔組｜24 小時</span></div><span class="pill">籌備中</span></li>
+          <li><span class="dot">C</span><div><b>永康超充站機台</b><span>電解水、純肉凍乾、鮮肉泥、清潔組｜24 小時</span></div><span class="pill">籌備中</span></li>
         </ul>
         <p class="note">以上據點名稱與狀態為展示用示意，非實際營運資訊。</p>
       </div>
@@ -379,12 +379,12 @@ footer .wrap{display:flex;gap:16px;justify-content:space-between;flex-wrap:wrap}
     <div class="kpis">
       <div><b>300 萬</b>單一模組投入</div>
       <div><b>1 + 3</b>旗艦吧台＋充電站機台</div>
-      <div><b id="kMargin">65%</b>品項平均毛利率（依食材成本）</div>
+      <div><b id="kMargin">68%</b>品項平均毛利率（依食材成本）</div>
       <div><b>20–30 分</b>超充停留時間</div>
     </div>
     <div class="pgrid">
       <div class="points">
-        <div><h3>像咖啡膠囊一樣的經常性收入</h3><p>硬體佈局是為了綁定毛爸媽未來幾年的日常消耗：鮮食、湯飲與機能水。收入來自回購，而不是單次來店。</p></div>
+        <div><h3>像咖啡膠囊一樣的經常性收入</h3><p>硬體佈局是為了綁定毛爸媽未來幾年的日常消耗：能量碗、大骨湯與外出補給。收入來自回購，而不是單次來店。</p></div>
         <div><h3>進駐超充站，而不是租店面</h3><p>車主充電時多半在旁邊遛狗，消費力高、對新科技接受度也高。場地與電力由充電站既有設施支援，機台同時是營運商的車主服務。</p></div>
         <div><h3>主動提醒取代綁卡訂閱</h3><p>數位會員卡記錄每次購買，系統推估存量後以 LINE 預留取餐，把顧客自然帶回旗艦店。</p></div>
         <div><h3>一個區域一個模組，獨立核算</h3><p>每組資金對應一個區域的實體資產與營收分潤。首個模組驗證損益兩平後，再複製到下一個區域。</p></div>
@@ -435,7 +435,7 @@ footer .wrap{display:flex;gap:16px;justify-content:space-between;flex-wrap:wrap}
     <button class="btn" id="copyUrl" type="button">複製網址</button>
   </div>
 </div>
-<script src="config.js?v=2"></script>
+<script src="config.js?v=3"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <script>
@@ -443,21 +443,21 @@ const CFG=window.PTG_CONFIG||{}, API=CFG.APPS_SCRIPT_URL||"", LOGIN_ON=!!(API&&C
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 // 內建商品（來源：商品清單.xlsx）。設定後端後會改用 Google 試算表「商品」工作表的內容。
 let P=[
- ["實體店","營養湯飲","黃金牛骨元氣水","牛大骨、胡蘿蔔、蘋果","狗狗","補充元氣",85,30,"cup","#d98b4a"],
- ["實體店","營養湯飲","小魚干喵喵膠原飲","丁香魚、雞軟骨、柴魚高湯","貓咪","皮毛養護",80,25,"cup","#5b9bd5"],
- ["實體店","營養湯飲","關節保養綠蓉湯","綠唇貽貝、雞胸肉、花椰菜","犬貓","關節保健",95,35,"cup","#6fae7a"],
- ["實體店","鮮食主餐","嫩蒸土雞藜麥杯","雞腿肉、紅藜麥、南瓜","狗狗","低脂健康",120,45,"bowl","#e3a53c"],
- ["實體店","鮮食主餐","鮮鮭牛腩雙拼能量碗","鮭魚、牛腩、青豆","狗狗","高蛋白增肌",145,55,"bowl","#e07a5f"],
- ["實體店","鮮食主餐","慕斯鴨胸舒敏盒","鴨胸肉、山藥、枸杞","貓咪","低敏易消化",130,45,"bowl","#b97a95"],
- ["實體店","特色甜點","汪汪雲朵羊奶霜","羊奶、無糖優格、角豆粉","狗狗","腸胃保健",90,30,"dessert","#a98467"],
- ["實體店","特色甜點","肉泥珍珠啵啵杯","雞肉泥、寒天珍珠、雞高湯","貓咪","補水解饞",110,35,"dessert","#c96b8a"],
- ["自動販賣機","凍乾零食","骰子牛凍乾原肉塊","100% 原肉／50g","犬貓","高蛋白零食",150,60,"pouch","#b5533c"],
- ["自動販賣機","鮮食包","雞肉鮮蔬常溫餐包","雞肉、蔬菜／100g","狗狗","外出便攜",70,25,"pouch","#7fb069"],
- ["自動販賣機","肉泥條","鮪魚干貝綜合肉泥條","鮪魚、干貝／4 入","貓咪","誘食獎勵",60,20,"sticks","#4f9ec4"],
- ["自動販賣機","機能水","蔓越莓泌尿保健水","蔓越莓萃取物／250ml","貓咪","泌尿道保健",45,15,"bottle","#c2456b"],
- ["自動販賣機","凍乾零食","爆蛋柳葉魚凍乾","柳葉魚／40g","犬貓","豐富鈣質",120,45,"pouch","#d9a441"],
- ["自動販賣機","潔牙骨","綠茶薄荷潔牙棒","綠茶粉、薄荷／5 入","狗狗","清新口氣",80,25,"sticks","#5aa9a3"]
-].map((r,i)=>({id:i,sku:"P"+String(i+1).padStart(2,"0"),ch:r[0],series:r[1],name:r[2],spec:r[3],pet:r[4],need:r[5],price:r[6],cost:r[7],art:r[8],c:r[9]}));
+ ["自動販賣機","單品","汪汪電解水","200ml 袋裝（低鈉等滲透壓）","狗狗","奔跑後補水",35,"bottle","#4f9ec4"],
+ ["自動販賣機","單品","純肉凍乾小酥包","15g 夾鏈隨身包（純肉原粒）","狗狗","戶外互動獎勵",50,"pouch","#b5533c"],
+ ["自動販賣機","單品","舒壓鮮肉泥","15g 單支條裝","狗狗","車內安撫",30,"sticks","#c96b8a"],
+ ["自動販賣機","單品","外出救急清潔組","潔足濕巾 5 抽＋便袋 2 枚","狗狗","上車前擦腳",35,"pouch","#5aa9a3"],
+ ["自動販賣機","組合包","放電組","電解水 1 包＋純肉凍乾 1 包","狗狗","現省 $10（原價 $85）",75,"box","#e3a53c"],
+ ["自動販賣機","組合包","上車組","電解水 1 包＋救急清潔組 1 包","狗狗","現省 $11（原價 $70）",59,"box","#6fae7a"],
+ ["實體店","主食單點","鮮嫩雞肉能量碗","150g（熟雞肉丁＋根莖時蔬）","狗狗","低敏低脂好消化",129,"bowl","#e3a53c"],
+ ["實體店","主食單點","原汁牛肉能量碗","150g（熟牛絞肉＋根莖時蔬）","狗狗","活動量大補鐵",129,"bowl","#b5533c"],
+ ["實體店","主食單點","低敏櫻桃鴨能量碗","150g（櫻桃鴨肉丁＋根莖時蔬）","狗狗","換季低敏",129,"bowl","#b97a95"],
+ ["實體店","湯飲單點","現溫大骨湯杯","250ml 外帶溫熱杯","狗狗","挑嘴補水",49,"cup","#d98b4a"],
+ ["實體店","湯飲加購","現溫大骨湯杯（主餐加購）","購買能量碗隨單加購優惠","狗狗","加購價",39,"cup","#a98467"],
+ ["實體店","湯飲多日","大骨湯家庭瓶","500ml 冷藏隨行瓶","狗狗","分 3～4 天拌糧",99,"bottle","#d98b4a"],
+ ["實體店","組合","免開火輕便組","能量碗任選 1 份＋舒壓肉泥 1 支","狗狗","現省 $14（原價 $159）",145,"box","#e07a5f"],
+ ["實體店","組合","雙犬週末加菜組","能量碗任選 2 份＋骨湯家庭瓶 1 瓶","狗狗","現省 $38（原價 $357）",319,"box","#5b9bd5"]
+].map((r,i)=>({id:i,sku:"P"+String(i+1).padStart(2,"0"),ch:r[0],series:r[1],name:r[2],spec:r[3],pet:r[4],need:r[5],price:r[6],art:r[7],c:r[8]}));
 
 const $=s=>document.querySelector(s), nt=n=>"NT$"+Math.round(n).toLocaleString("en-US");
 const paw=(x,y,s,f)=>`<use href="#paw" x="${x}" y="${y}" width="${s}" height="${s}" fill="${f}"/>`;
@@ -467,6 +467,7 @@ const ART={
  dessert:c=>`<path d="M58 64h84l-10 80a7 7 0 0 1-7 6H75a7 7 0 0 1-7-6z" fill="var(--pack)"/><path d="M62 96h76l-5 42a7 7 0 0 1-7 6H74a7 7 0 0 1-7-6z" fill="${c}" opacity=".85"/><circle cx="80" cy="56" r="20" fill="#fff"/><circle cx="120" cy="56" r="20" fill="#fff"/><circle cx="100" cy="40" r="22" fill="#fff"/><circle cx="100" cy="22" r="7" fill="${c}"/><circle cx="84" cy="124" r="5" fill="#fff" opacity=".7"/><circle cx="100" cy="130" r="5" fill="#fff" opacity=".7"/><circle cx="116" cy="124" r="5" fill="#fff" opacity=".7"/>`,
  pouch:c=>`<path d="M56 30h88l8 112a8 8 0 0 1-8 8H56a8 8 0 0 1-8-8z" fill="${c}"/><rect x="56" y="22" width="88" height="14" rx="3" fill="var(--pack)"/><circle cx="100" cy="92" r="30" fill="var(--pack)"/>${paw(84,76,32,c)}<rect x="74" y="132" width="52" height="6" rx="3" fill="#fff" opacity=".7"/>`,
  sticks:c=>[0,1,2,3].map(i=>`<g transform="rotate(${-12+i*8} 100 150)"><rect x="${52+i*26}" y="28" width="20" height="120" rx="6" fill="${i%2?'var(--pack)':c}"/><rect x="${52+i*26}" y="28" width="20" height="16" rx="6" fill="#fff" opacity=".5"/></g>`).join("")+paw(88,86,24,"#fff"),
+ box:c=>`<path d="M78 46V30a22 22 0 0 1 44 0v16" fill="none" stroke="${c}" stroke-width="5" stroke-linecap="round"/><path d="M50 46h100l8 96a8 8 0 0 1-8 8H50a8 8 0 0 1-8-8z" fill="${c}"/><path d="M50 46h100l1.5 18h-103z" fill="#fff" opacity=".35"/><circle cx="100" cy="104" r="26" fill="var(--pack)"/>${paw(86,90,28,c)}`,
  bottle:c=>`<rect x="84" y="12" width="32" height="18" rx="4" fill="${c}"/><path d="M80 30h40l10 22v90a8 8 0 0 1-8 8H78a8 8 0 0 1-8-8V52z" fill="var(--pack)"/><rect x="70" y="72" width="60" height="50" fill="${c}"/>${paw(88,85,24,"#fff")}<rect x="78" y="132" width="44" height="5" rx="2.5" fill="${c}" opacity=".5"/>`
 };
 
@@ -475,7 +476,7 @@ try{cart=JSON.parse(localStorage.getItem("ptg-cart"))||{}}catch(e){}
 const save=()=>{try{localStorage.setItem("ptg-cart",JSON.stringify(cart))}catch(e){}};
 
 function renderGrid(){
-  const list=P.filter(p=>(fCh==="all"||p.ch===fCh)&&(fPet==="all"||p.pet.includes(fPet)||p.pet==="犬貓"));
+  const list=P.filter(p=>(fCh==="all"||p.ch===fCh)&&(fPet==="all"||(fPet==="combo")===/組合/.test(p.series)));
   $("#grid").innerHTML=list.length?list.map(p=>`
    <article class="prod">
     <div class="tile"><span class="tag ${p.ch==="自動販賣機"?"vend":""}">${p.ch==="自動販賣機"?"充電站機台":"旗艦店現做"}</span>
@@ -505,8 +506,12 @@ function renderCart(){
   $("#dfoot").hidden=!ids.length;
   $("#sub").textContent=nt(sub);$("#disc").textContent="−"+nt(d);$("#total").textContent=nt(sub-d);
 }
+// 加購價品項需搭配旗艦吧台的能量碗或含能量碗的組合
+const isAddon=p=>/加購/.test(p.series);
+const hasMain=()=>Object.keys(cart).some(id=>cart[id]>0&&P[id]&&P[id].ch==="實體店"&&/主食|組合/.test(P[id].series));
 function openCart(o){$("#drawer").hidden=!o;$("#scrim").hidden=!o;if(o)renderCart()}
 $("#grid").addEventListener("click",e=>{const b=e.target.closest(".add");if(!b)return;
+  if(isAddon(P[b.dataset.id])&&!hasMain()){toast("加購價需搭配能量碗，請先加入主餐");return}
   cart[b.dataset.id]=(cart[b.dataset.id]||0)+1;save();renderCart();toast("已加入購物車："+P[b.dataset.id].name)});
 $("#items").addEventListener("click",e=>{const b=e.target.closest("[data-q]");if(!b)return;
   cart[b.dataset.id]=Math.max(0,(cart[b.dataset.id]||0)+ +b.dataset.q);if(!cart[b.dataset.id])delete cart[b.dataset.id];save();renderCart()});
@@ -524,6 +529,7 @@ $("#checkout").onclick=async()=>{
   const ids=Object.keys(cart).filter(id=>cart[id]>0&&P[id]);
   if(!ids.length)return;
   err.hidden=true;
+  if(ids.some(id=>isAddon(P[id]))&&!hasMain()){err.textContent="加購價的湯杯需搭配能量碗，請加入主餐或移除加購品項。";err.hidden=false;return}
   let title="模擬訂單完成", line=esc(where)+"・"+$("#total").textContent;
   if(API){
     btn.disabled=true;btn.textContent="送出中…";
@@ -591,8 +597,8 @@ if(LOGIN_ON){
 }
 
 function calc(){
-  const w=+$("#inW").value, p=+$("#inP").value, days=p*100/(w*20), shown=Math.max(1,Math.round(days));
-  $("#outW").textContent=w+" kg";$("#outP").textContent=p+" 包";$("#wWeight").textContent=w;
+  const w=+$("#inW").value, p=+$("#inP").value, days=p*150/(w*20), shown=Math.max(1,Math.round(days));
+  $("#outW").textContent=w+" kg";$("#outP").textContent=p+" 份";$("#wWeight").textContent=w;
   $("#days").textContent="約 "+shown+" 天";$("#lineWhen").textContent=shown+" 天後 16:30";
   const f=$("#fill");f.style.width=Math.min(100,days/14*100)+"%";f.classList.toggle("low",days<=3);
 }
@@ -600,7 +606,6 @@ $("#inW").oninput=$("#inP").oninput=calc;
 
 function facts(){$("#factCount").textContent=P.length+" 款";$("#factRange").textContent="NT$"+Math.min(...P.map(p=>p.price))+" 起"}
 facts();
-$("#kMargin").textContent=Math.round(P.reduce((s,p)=>s+(p.price-p.cost)/p.price,0)/P.length*100)+"%";
 $("#mods").innerHTML=Array.from({length:15},(_,i)=>{
   const n=String(i+1).padStart(2,"0");
   return i===0?`<div class="mod live"><b>${n}</b>台南東區<br>示範模組`:i===1?`<div class="mod plan"><b>${n}</b>台中草悟道<br>規劃中`:`<div class="mod"><b>${n}</b>開放<br>洽談`;
